@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpha Security - Services</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    :root {
+      --navy: #0a1628;
+      --blue: #1a3a6e;
+      --accent: #e63946;
+      --gold: #f4a261;
+      --light: #f8f9fa;
+      --text: #2d2d2d;
+      --muted: #6c757d;
+      --border: #dee2e6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: white; line-height: 1.6; }
+    
+    /* Navigation */
+    .navbar {
+      background: var(--navy);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .nav-brand {
+      font-size: 24px;
+      font-weight: 900;
+      color: white;
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--gold); }
+    .nav-menu {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.3s;
+      opacity: 0.9;
+    }
+    .nav-menu a:hover, .nav-menu a.active {
+      color: var(--gold);
+      opacity: 1;
+    }
+    
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 60%, #2563eb 100%);
+      color: white;
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .page-header h1 span { color: var(--gold); }
+    .page-header p {
+      font-size: 18px;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Page Content */
+    .page-content {
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .section-header .num {
+      width: 48px;
+      height: 48px;
+      background: var(--navy);
+      color: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .section-header h2 {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .section-header p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    hr.section-rule {
+      border: none;
+      border-top: 2px solid var(--border);
+      margin-bottom: 36px;
+    }
+    
+    /* Service Grid */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .service-card {
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      transition: all 0.3s;
+    }
+    .service-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .service-card .icon {
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    
+    /* Why Choose Us */
+    .why-section {
+      background: var(--light);
+      padding: 60px 40px;
+      margin-top: 60px;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .why-card {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 28px;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .why-card .bullet {
+      width: 48px;
+      height: 48px;
+      background: var(--navy);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .why-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .why-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .footer h2 {
+      font-size: 36px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .footer h2 span { color: var(--gold); }
+    .footer p {
+      font-size: 16px;
+      opacity: 0.8;
+      margin-bottom: 24px;
+    }
+    .footer-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s;
+    }
+    .footer-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+      .navbar { padding: 16px 20px; flex-direction: column; gap: 16px; }
+      .nav-menu { gap: 20px; }
+      .page-header h1 { font-size: 32px; }
+      .service-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">ALPHA <span>SECURITY</span></a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="cases.html">Case Studies</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-header">
+    <h1>Our <span>Services</span></h1>
+    <p>Comprehensive loss prevention solutions tailored for retail excellence in London, Ontario and surrounding areas.</p>
+  </section>
+
+  <div class="page-content">
+    <div class="section-header">
+      <div class="num">01</div>
+      <div>
+        <h2>Core Services</h2>
+        <p>Professional security solutions for your business</p>
+      </div>
+    </div>
+    <hr class="section-rule">
+    
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="icon">👮</div>
+        <h3>Uniformed Security Officers</h3>
+        <p>Professional, trained security personnel providing visible deterrence and rapid response to incidents. Our officers are certified and experienced in retail environments.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">📹</div>
+        <h3>CCTV Monitoring</h3>
+        <p>Advanced surveillance systems with real-time monitoring to detect and prevent theft, ensure compliance, and provide valuable evidence when needed.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🛍️</div>
+        <h3>Loss Prevention Audits</h3>
+        <p>Comprehensive assessments of your security posture, identifying vulnerabilities in processes, systems, and physical security to reduce shrinkage.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🚨</div>
+        <h3>Incident Response</h3>
+        <p>24/7 rapid response team for security incidents, apprehensions, and emergency situations with detailed documentation and reporting.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">📊</div>
+        <h3>Risk Assessment</h3>
+        <p>Detailed analysis of your operations to identify high-risk areas, develop targeted strategies, and implement effective countermeasures.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🎓</div>
+        <h3>Staff Training</h3>
+        <p>Educate your team on loss prevention best practices, de-escalation techniques, and creating a culture of security awareness.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="why-section">
+    <div class="section-header">
+      <div class="num">02</div>
+      <div>
+        <h2>Why Choose Alpha Security?</h2>
+        <p>The Alpha Security advantage</p>
+      </div>
+    </div>
+    <hr class="section-rule">
+    
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="bullet">✓</div>
+        <div>
+          <h3>Local Expertise</h3>
+          <p>Based in London, Ontario, we understand the local retail landscape and specific security challenges in your area.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="bullet">📈</div>
+        <div>
+          <h3>Proven Results</h3>
+          <p>83.7% apprehension success rate with $966 CAD in merchandise recovered during our recent service period.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="bullet">👥</div>
+        <div>
+          <h3>Certified Team</h3>
+          <p>9 certified officers on our active team, all trained in the latest loss prevention techniques and customer service.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="bullet">📋</div>
+        <div>
+          <h3>Transparent Reporting</h3>
+          <p>Detailed documentation of all incidents, apprehensions, and activities with regular performance reviews.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <h2>Ready to <span>Protect</span> Your Business?</h2>
+    <p>Let's discuss how we can tailor our services to your specific needs.</p>
+    <a href="contact.html" class="footer-btn">Contact Us Today</a>
+  </footer>
+</body>
+</html>
