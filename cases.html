@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpha Security - Case Studies</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    :root {
+      --navy: #0a1628;
+      --blue: #1a3a6e;
+      --accent: #e63946;
+      --gold: #f4a261;
+      --light: #f8f9fa;
+      --text: #2d2d2d;
+      --muted: #6c757d;
+      --border: #dee2e6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: white; line-height: 1.6; }
+    
+    /* Navigation */
+    .navbar {
+      background: var(--navy);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .nav-brand {
+      font-size: 24px;
+      font-weight: 900;
+      color: white;
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--gold); }
+    .nav-menu {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.3s;
+      opacity: 0.9;
+    }
+    .nav-menu a:hover, .nav-menu a.active {
+      color: var(--gold);
+      opacity: 1;
+    }
+    
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 60%, #2563eb 100%);
+      color: white;
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .page-header h1 span { color: var(--gold); }
+    .page-header p {
+      font-size: 18px;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Page Content */
+    .page-content {
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .section-header .num {
+      width: 48px;
+      height: 48px;
+      background: var(--navy);
+      color: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .section-header h2 {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .section-header p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    hr.section-rule {
+      border: none;
+      border-top: 2px solid var(--border);
+      margin-bottom: 36px;
+    }
+    
+    /* Stats Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+    .stat-box {
+      background: var(--navy);
+      color: white;
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .stat-box .num {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-box .lbl {
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+    
+    /* Case Cards */
+    .case-grid {
+      display: grid;
+      gap: 28px;
+      margin-bottom: 50px;
+    }
+    .case-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .case-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+    .case-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: var(--accent);
+    }
+    .case-card.blue::before { background: #1d4ed8; }
+    .case-card.green::before { background: #15803d; }
+    .case-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .case-card .meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .case-card .meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .case-card p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .case-card .outcome {
+      display: inline-block;
+      background: #dcfce7;
+      color: #15803d;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .case-card .outcome.blue {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+    
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .footer h2 {
+      font-size: 36px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .footer h2 span { color: var(--gold); }
+    .footer p {
+      font-size: 16px;
+      opacity: 0.8;
+      margin-bottom: 24px;
+    }
+    .footer-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s;
+    }
+    .footer-btn:hover { transform: scale(1.05); }
+    
+    @media (max-width: 768px) {
+      .navbar { padding: 16px 20px; flex-direction: column; gap: 16px; }
+      .nav-menu { gap: 20px; }
+      .page-header h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">ALPHA <span>SECURITY</span></a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="cases.html" class="active">Case Studies</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-header">
+    <h1>Case <span>Studies</span></h1>
+    <p>Real results from our loss prevention operations across London, Ontario retail locations.</p>
+  </section>
+
+  <div class="page-content">
+    <div class="section-header">
+      <div class="num">01</div>
+      <div>
+        <h2>Performance Overview</h2>
+        <p>Oct 2025 - Feb 2026 Service Period</p>
+      </div>
+    </div>
+    <hr class="section-rule">
+    
+    <div class="stats-bar">
+      <div class="stat-box">
+        <div class="num">153</div>
+        <div class="lbl">Total Shifts Logged</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">83.7%</div>
+        <div class="lbl">Apprehension Rate</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">$966</div>
+        <div class="lbl">CAD Recovered</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">9</div>
+        <div class="lbl">Active Officers</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="section-header">
+      <div class="num">02</div>
+      <div>
+        <h2>Recent Case Studies</h2>
+        <p>Documented incidents and outcomes</p>
+      </div>
+    </div>
+    <hr class="section-rule">
+    
+    <div class="case-grid">
+      <div class="case-card">
+        <h3>Organized Retail Theft Ring Dismantled</h3>
+        <div class="meta">
+          <span>📍 Downtown London</span>
+          <span>📅 January 2026</span>
+          <span>👥 4 Officers Deployed</span>
+        </div>
+        <p>Multi-location investigation identified a coordinated group targeting high-value electronics. Through coordinated surveillance and intelligence gathering, our team tracked patterns across 5 retail locations over 3 weeks.</p>
+        <p><strong>Actions Taken:</strong> Coordinated apprehension operation with local police, executed simultaneous detentions, recovered stolen merchandise, and provided comprehensive evidence packages.</p>
+        <div class="outcome">✓ $420 CAD merchandise recovered • 3 apprehensions • Zero incidents</div>
+      </div>
+      
+      <div class="case-card blue">
+        <h3>Internal Shrinkage Investigation</h3>
+        <div class="meta">
+          <span>📍 North London Mall</span>
+          <span>📅 December 2025</span>
+          <span>🔍 CCTV Analysis</span>
+        </div>
+        <p>Client reported consistent inventory discrepancies in the cosmetics department. Our loss prevention specialists conducted a thorough review of CCTV footage, POS data, and employee access patterns.</p>
+        <p><strong>Actions Taken:</strong> Identified procedural vulnerabilities, implemented new checkout verification protocols, and provided staff retraining on proper merchandise handling.</p>
+        <div class="outcome blue">📊 40% reduction in shrinkage • New protocols implemented</div>
+      </div>
+      
+      <div class="case-card green">
+        <h3>Shoplifting Deterrence Initiative</h3>
+        <div class="meta">
+          <span>📍 Westmount Plaza</span>
+          <span>📅 November 2025</span>
+          <span>👮 Visible Patrols</span>
+        </div>
+        <p>High-traffic retail location experiencing increased shoplifting incidents during holiday season. Implemented enhanced visible security presence combined with strategic positioning and customer engagement protocols.</p>
+        <p><strong>Actions Taken:</strong> Increased officer visibility, established entry/exit monitoring, coordinated with store management on high-risk item placement, and conducted daily briefings.</p>
+        <div class="outcome">✓ 67% reduction in incidents • $310 CAD recovered • Enhanced customer safety</div>
+      </div>
+      
+      <div class="case-card">
+        <h3>Return Fraud Prevention</h3>
+        <div class="meta">
+          <span>📍 South London</span>
+          <span>📅 October 2025</span>
+          <span>📋 Policy Review</span>
+        </div>
+        <p>Client identified suspicious return patterns totaling significant losses. Our team analyzed return transaction data, identified fraudulent patterns, and developed targeted prevention strategies.</p>
+        <p><strong>Actions Taken:</strong> Implemented enhanced return verification procedures, trained frontline staff on fraud indicators, and established manager approval thresholds.</p>
+        <div class="outcome">✓ $236 CAD in fraudulent returns prevented • New verification system</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <h2>Ready to <span>Protect</span> Your Business?</h2>
+    <p>Let Alpha Security bring the same proven results to your location.</p>
+    <a href="contact.html" class="footer-btn">Contact Us Today</a>
+  </footer>
+</body>
+</html>
